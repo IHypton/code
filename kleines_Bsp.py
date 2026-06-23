@@ -1,3 +1,6 @@
+import pulp
+from itertools import product
+
 # ==================================================
 # SCHRITT 1: INSTANZ
 # ==================================================
@@ -50,8 +53,6 @@ M = 1000  # big number für lexikografische Gewichtung
 # SCHRITT 2: SPALTENGENERIERUNG
 # ==================================================
 
-from itertools import product
-
 def generate_valid_pod_sets(R_i):
     
     choices_per_item = [[None] + pods for pods in R_i.values()]
@@ -100,8 +101,6 @@ for c in columns:
 # ==================================================
 # SCHRITT 3: GENERALIZED SET COVERING MODELL
 # ==================================================
-
-import pulp
 
 model = pulp.LpProblem("RMFS_GSC", pulp.LpMinimize)
 
