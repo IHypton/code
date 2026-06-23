@@ -1,17 +1,5 @@
 import random
 
-# ==================================================
-# SCHRITT 5: ZUFÄLLIGE SPALTENGENERIERUNG (SAMPLING)
-# ==================================================
-# Bei größeren Instanzen (10+ Items) ist Voll-Enumeration aller gültigen
-# Pod-Mengen R_k (mit |R_k ∩ R_i| <= 1) exponentiell teuer.
-# Daher: zufällige Stichprobe von gültigen Spalten ziehen.
-#
-# Eine zufällige Spalte entsteht, indem wir für jedes Item i ∈ I unabhängig
-# würfeln: "nehme keinen Pod" oder "nehme einen zufälligen Pod aus R_i".
-# p_include steuert, wie wahrscheinlich ein Item überhaupt in der Spalte
-# vorkommt (höher p_include -> größere, vollere Spalten).
-
 def sample_random_column(R_i, location, q, d, p_include=0.5, rng=None):
     if rng is None:
         rng = random

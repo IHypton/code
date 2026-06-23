@@ -2,9 +2,6 @@ import pulp
 from random_instance import generate_random_instance, print_instance
 from random_columns import generate_random_columns, coverage_check
 
-# ==================================================
-# SCHRITT 6: GSC MODELL MIT PULP AUF ZUFÄLLIGEN SPALTEN
-# ==================================================
 
 def solve_gsc(instance, columns, verbose=True):
     I = instance["I"]

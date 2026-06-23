@@ -1,11 +1,6 @@
 import pulp
 from itertools import product
 
-# ==================================================
-# SCHRITT 1: INSTANZ
-# ==================================================
-# Notation exakt nach Paper (Tabelle 1 / Abschnitt 3.1):
-#
 # I        = Menge der Artikel (Items)
 # R_i      = Menge der Pods, von denen Artikel i gepickt werden kann
 # R        = Menge aller Pods (Vereinigung aller R_i)
@@ -41,9 +36,6 @@ I = list(R_i.keys())
 R = [pod for pods in R_i.values() for pod in pods]
 M = 1000  
 
-# ==================================================
-# SCHRITT 2: SPALTENGENERIERUNG
-# ==================================================
 
 def generate_valid_pod_sets(R_i):
     choices_per_item = [[None] + pods for pods in R_i.values()]
@@ -91,9 +83,7 @@ if __name__ == '__main__':
             f"Items={c['items']}"
         )
 
-    # ==================================================
-    # SCHRITT 3: GENERALIZED SET COVERING MODELL
-    # ==================================================
+    
 
     model = pulp.LpProblem("RMFS_GSC", pulp.LpMinimize)
 

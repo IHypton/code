@@ -1,13 +1,6 @@
 import random
 from itertools import product
 
-# ==================================================
-# SCHRITT 4: ZUFÄLLIGER INSTANZGENERATOR
-# ==================================================
-# Größe: fest klein (~3 Items, 2 Standorte) - wie bisheriges Testbeispiel
-# |R_i|: zufällig zwischen 1 und 3 Pods pro Item
-# q_r und d_rl: komplett unabhängig zufällig
-
 def generate_random_instance(
     n_items=10,
     n_locations=3,
