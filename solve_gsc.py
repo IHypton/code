@@ -1,6 +1,6 @@
 import pulp
 from random_instance import generate_random_instance, print_instance
-from random_columns import generate_random_columns, coverage_check
+from random_columns import generate_random_columns, generate_lpt_heuristic_columns, coverage_check
 
 
 def solve_gsc(instance, columns, verbose=True):
@@ -70,10 +70,21 @@ if __name__ == "__main__":
     instance = generate_random_instance(seed=42)
     print_instance(instance)
 
-    columns = generate_random_columns(instance, n_columns_per_location=200, p_include=0.3, seed=1)
+    random_cols = generate_random_columns(instance, n_columns_per_location=2000, p_include=0.5, seed=1)
+    lpt_cols = generate_lpt_heuristic_columns(instance)
+
+
+    columns = random_cols + lpt_cols
+    for idx, c in enumerate(columns):
+        c["id"] = idx
 
     missing = coverage_check(columns, instance["I"])
     print(f"\nNicht abgedeckte Items: {missing}")
-    print(f"Anzahl Spalten: {len(columns)}\n")
+    print(f"Anzahl Spalten gesamt: {len(columns)} (davon {len(lpt_cols)} LPT-Heuristik-Spalten)\n")
 
     result = solve_gsc(instance, columns)
+
+    print("\n--- Quelle der gewählten Spalten ---")
+    for c in result["chosen_columns"]:
+        source = c.get("source", "random_sample")
+        print(f"ID={c['id']} Loc={c['location']} Pods={c['pods']} W={c['workload']} D={c['distance']} -> Quelle: {source}")

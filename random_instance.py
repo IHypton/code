@@ -1,6 +1,7 @@
 import random
 from itertools import product
 
+
 def generate_random_instance(
     n_items=10,
     n_locations=3,
@@ -12,7 +13,7 @@ def generate_random_instance(
     Q=None,
     seed=None,
 ):
-    if seed is None:
+    if seed is not None:
         random.seed(seed)
 
     L = list(range(1, n_locations + 1))
@@ -80,3 +81,55 @@ def print_instance(instance):
 if __name__ == "__main__":
     instance = generate_random_instance(seed=42)
     print_instance(instance)
+
+
+def generate_fully_random_instance(
+    n_items_range=(5, 20),
+    n_locations_range=(2, 6),
+    pods_per_item_range=(1, 4),
+    q_range_bounds=(1, 30),
+    d_range_bounds=(1, 50),
+    seed=None,
+):
+    rng = random.Random(seed)
+
+    n_items = rng.randint(*n_items_range)
+    n_locations = rng.randint(*n_locations_range)
+
+    min_pods_per_item = rng.randint(pods_per_item_range[0], pods_per_item_range[1] - 1) \
+        if pods_per_item_range[1] > pods_per_item_range[0] else pods_per_item_range[0]
+    max_pods_per_item = rng.randint(min_pods_per_item, pods_per_item_range[1])
+
+    # zufälliger Wertebereich für q_r 
+    q_min = rng.randint(q_range_bounds[0], q_range_bounds[1] // 2)
+    q_max = rng.randint(q_min + 1, q_range_bounds[1])
+
+    # zufälliger Wertebereich für d_rl 
+    d_min = rng.randint(d_range_bounds[0], d_range_bounds[1] // 2)
+    d_max = rng.randint(d_min + 1, d_range_bounds[1])
+
+    # Q zufällig
+    Q = rng.randint(1, n_locations)
+
+    # eigener Sub-Seed für die Werte-Generierung 
+    sub_seed = rng.randint(0, 10**9)
+
+    return generate_random_instance(
+        n_items=n_items,
+        n_locations=n_locations,
+        min_pods_per_item=min_pods_per_item,
+        max_pods_per_item=max_pods_per_item,
+        q_min=q_min, q_max=q_max,
+        d_min=d_min, d_max=d_max,
+        Q=Q,
+        seed=sub_seed,
+    )
+
+
+if __name__ == "__main__":
+    print("\n\n=== Beispiel: voll-zufällige Instanz für ML-Daten ===\n")
+    for i in range(3):
+        inst = generate_fully_random_instance(seed=100 + i)
+        print(f"--- Instanz {i} ---")
+        print(f"n_items={len(inst['I'])}, n_locations={len(inst['L'])}, Q={inst['Q']}")
+        print()

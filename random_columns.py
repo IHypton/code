@@ -1,4 +1,6 @@
 import random
+from itertools import permutations
+
 
 def sample_random_column(R_i, location, q, d, p_include=0.5, rng=None):
     if rng is None:
@@ -75,6 +77,70 @@ def coverage_check(columns, I):
     return missing
 
 
+def generate_lpt_heuristic_columns(instance):
+    R_i = instance["R_i"]
+    L = instance["L"]
+    Q = instance["Q"]
+    q = instance["q"]
+    d = instance["d"]
+
+    # Schritt 1: pro Item den Pod mit geringstem Workload wählen
+    chosen_pod_per_item = {}
+    for i, pods in R_i.items():
+        best_pod = min(pods, key=lambda r: q[r])
+        chosen_pod_per_item[i] = best_pod
+
+    # Schritt 2: Items absteigend nach Workload des gewählten Pods sortieren
+    items_sorted = sorted(
+        chosen_pod_per_item.keys(),
+        key=lambda i: q[chosen_pod_per_item[i]],
+        reverse=True
+    )
+
+    # Schritt 3: LPT-Verteilung auf Q virtuelle Gruppen
+    group_items = [[] for _ in range(Q)]
+    group_load = [0] * Q
+
+    for i in items_sorted:
+        pod = chosen_pod_per_item[i]
+        target = group_load.index(min(group_load))
+        group_items[target].append((i, pod))
+        group_load[target] += q[pod]
+
+    # Schritt 4: für jede Gruppe den besten Standort finden (ohne Duplikate)
+    non_empty_groups = [g for g in group_items if len(g) > 0]
+    n_groups = len(non_empty_groups)
+
+    best_assignment = None
+    best_total_distance = None
+
+    for loc_perm in permutations(L, n_groups):
+        total_dist = 0
+        for group, loc in zip(non_empty_groups, loc_perm):
+            total_dist += sum(d[(pod, loc)] for (_, pod) in group)
+        if best_total_distance is None or total_dist < best_total_distance:
+            best_total_distance = total_dist
+            best_assignment = loc_perm
+
+    # Schritt 5: fertige Spalten bauen
+    heuristic_columns = []
+    for group, loc in zip(non_empty_groups, best_assignment):
+        pods = tuple(pod for (_, pod) in group)
+        items_covered = [i for (i, _) in group]
+        workload = sum(q[r] for r in pods)
+        distance = sum(d[(r, loc)] for r in pods)
+        heuristic_columns.append({
+            "location": loc,
+            "pods": pods,
+            "workload": workload,
+            "distance": distance,
+            "items": items_covered,
+            "source": "lpt_heuristic",
+        })
+
+    return heuristic_columns
+
+
 if __name__ == "__main__":
     from random_instance import generate_random_instance, print_instance
 
@@ -89,3 +155,8 @@ if __name__ == "__main__":
 
     missing = coverage_check(columns, instance["I"])
     print(f"\nNicht abgedeckte Items (sollte leer sein, sonst Resampling nötig): {missing}")
+
+    print("\n--- LPT-Heuristik-Spalten ---")
+    lpt_cols = generate_lpt_heuristic_columns(instance)
+    for c in lpt_cols:
+        print(f"Loc={c['location']} Pods={c['pods']} W={c['workload']} D={c['distance']} Items={c['items']}")
