@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
     result = solve_gsc(instance, columns)
 
-    print("\n--- Quelle der gewählten Spalten ---")
+    print("\nQuelle der gewählten Spalten:")
     for c in result["chosen_columns"]:
         source = c.get("source", "random_sample")
         print(f"ID={c['id']} Loc={c['location']} Pods={c['pods']} W={c['workload']} D={c['distance']} -> Quelle: {source}")

@@ -156,7 +156,7 @@ if __name__ == "__main__":
     missing = coverage_check(columns, instance["I"])
     print(f"\nNicht abgedeckte Items (sollte leer sein, sonst Resampling nötig): {missing}")
 
-    print("\n--- LPT-Heuristik-Spalten ---")
+    print("\nLPT-Heuristik-Spalten:")
     lpt_cols = generate_lpt_heuristic_columns(instance)
     for c in lpt_cols:
         print(f"Loc={c['location']} Pods={c['pods']} W={c['workload']} D={c['distance']} Items={c['items']}")

@@ -52,20 +52,20 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 y_proba = model.predict_proba(X_test)[:, 1]
 
-print("\n--- Klassifikationsbericht (Schwelle 0.5) ---")
+print("\nKlassifikationsbericht (Schwelle 0.5):")
 print(classification_report(y_test, y_pred, digits=3))
 
 print("ROC-AUC:", round(roc_auc_score(y_test, y_proba), 4))
 print("PR-AUC (Average Precision):", round(average_precision_score(y_test, y_proba), 4))
 
 importances = pd.Series(model.feature_importances_, index=feature_cols).sort_values(ascending=False)
-print("\n--- Feature Importance ---")
+print("\n Feature Importance:")
 print(importances)
 
 test_df = test_df.copy()
 test_df["model_score"] = y_proba
 
-print("\n--- Beispiel: Top-5 Spalten nach Modell-Score für eine Test-Instanz ---")
+print("\n Beispiel: Top-5 Spalten nach Modell-Score für eine Test-Instanz:")
 example_instance = test_ids[0]
 example = test_df[test_df["instance_id"] == example_instance].sort_values("model_score", ascending=False)
 print(example[["workload", "distance", "n_items_covered", "model_score", "chosen"]].head(10))

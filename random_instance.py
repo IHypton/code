@@ -13,7 +13,7 @@ def generate_random_instance(
     Q=None,
     seed=None,
 ):
-    if seed is not None:
+    if seed is None:
         random.seed(seed)
 
     L = list(range(1, n_locations + 1))
