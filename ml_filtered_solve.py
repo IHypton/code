@@ -7,24 +7,29 @@ from solve_gsc import solve_gsc
 from feature_engineering import compute_features_for_columns, FEATURE_COLS
 
 MODEL_FILE = "model.pkl"
-TOP_K = 100  # wie viele Zufallsspalten pro Instanz nach ML-Filter übrig bleiben 
-N_TEST_INSTANCES = 20
-N_COLUMNS_PER_LOCATION_FULL = 2000  # Größe des "vollen" Pools zum Vergleich (pro Location, nicht pro Instanz!)
+TOP_K = 100  # wie viele Zufallsspalten pro Instanz nach ML-Filter übrig bleiben
+N_TEST_INSTANCES = 5
+N_COLUMNS_PER_LOCATION_FULL = 2000  # Größe des "vollen" Pools zum Vergleich
 
 
 def run_comparison(n_test_instances=N_TEST_INSTANCES, top_k=TOP_K, seed_offset=5000):
+    print(f"Lade Modell aus {MODEL_FILE} ...")
     model = joblib.load(MODEL_FILE)
+    print("Modell geladen. Starte Vergleich...\n")
 
     results = []
 
     for i in range(n_test_instances):
+        print(f"[{i+1}/{n_test_instances}] Generiere Instanz...", flush=True)
         instance = generate_fully_random_instance(seed=seed_offset + i)
+        print(f"    n_items={len(instance['I'])}, n_locations={len(instance['L'])}, Q={instance['Q']}", flush=True)
 
         random_cols = generate_random_columns(
             instance, n_columns_per_location=N_COLUMNS_PER_LOCATION_FULL,
             p_include=0.5, seed=seed_offset + 1000 + i
         )
         lpt_cols = generate_lpt_heuristic_columns(instance)
+        print(f"    {len(random_cols)} Zufallsspalten + {len(lpt_cols)} LPT-Spalten generiert", flush=True)
 
         full_columns = random_cols + lpt_cols
         for idx, c in enumerate(full_columns):
@@ -37,7 +42,9 @@ def run_comparison(n_test_instances=N_TEST_INSTANCES, top_k=TOP_K, seed_offset=5
         t0 = time.time()
         result_full = solve_gsc(instance, full_columns, verbose=False)
         time_full = time.time() - t0
+        print(f"    Voller Pool gelöst in {time_full:.2f}s, b={result_full['b']}, G={result_full['objective']}", flush=True)
 
+       
         feature_rows = compute_features_for_columns(instance, random_cols, lpt_cols)
         X = pd.DataFrame(feature_rows)[FEATURE_COLS]
         scores = model.predict_proba(X)[:, 1]
@@ -63,6 +70,7 @@ def run_comparison(n_test_instances=N_TEST_INSTANCES, top_k=TOP_K, seed_offset=5
         t0 = time.time()
         result_filtered = solve_gsc(instance, filtered_columns, verbose=False)
         time_filtered = time.time() - t0
+        print(f"    Gefilterter Pool gelöst in {time_filtered:.2f}s, b={result_filtered['b']}, G={result_filtered['objective']}\n", flush=True)
 
         results.append({
             "instance_id": seed_offset + i,
@@ -90,7 +98,7 @@ if __name__ == "__main__":
           f"({len(df) - len(ok)} mit Coverage-Problem im gefilterten Pool)")
 
     if len(ok) > 0:
-        print("\n:Zusammenfassung:")
+        print("\nZusammenfassung:")
         print(f"Ø Zielfunktionswert voller Pool:      {ok['objective_full'].mean():.1f}")
         print(f"Ø Zielfunktionswert ML-gefiltert:      {ok['objective_filtered'].mean():.1f}")
         n_identical = (ok['objective_full'] == ok['objective_filtered']).sum()

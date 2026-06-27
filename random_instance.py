@@ -127,7 +127,7 @@ def generate_fully_random_instance(
 
 
 if __name__ == "__main__":
-    print("\n\n=== Beispiel: voll-zufällige Instanz für ML-Daten ===\n")
+    print("\n\nBeispiel: voll-zufällige Instanz für ML-Daten\n")
     for i in range(3):
         inst = generate_fully_random_instance(seed=100 + i)
         print(f"--- Instanz {i} ---")
