@@ -57,7 +57,7 @@ model.fit(X_train_res, y_train_res)
 y_pred = model.predict(X_test)
 y_proba = model.predict_proba(X_test)[:, 1]
 
-print("\n=== Modell MIT SMOTE-Oversampling (nur Zufalls-Spalten) ===")
+print("\nModell MIT SMOTE-Oversampling (nur Zufalls-Spalten):")
 print(classification_report(y_test, y_pred, digits=3))
 print("ROC-AUC:", round(roc_auc_score(y_test, y_proba), 4))
 print("PR-AUC:", round(average_precision_score(y_test, y_proba), 4))
@@ -73,6 +73,6 @@ model_baseline = RandomForestClassifier(
 model_baseline.fit(X_train, y_train)
 y_proba_baseline = model_baseline.predict_proba(X_test)[:, 1]
 
-print("\n=== Referenz OHNE SMOTE (nur class_weight='balanced') ===")
+print("\nReferenz OHNE SMOTE (nur class_weight='balanced'):")
 print("ROC-AUC:", round(roc_auc_score(y_test, y_proba_baseline), 4))
 print("PR-AUC:", round(average_precision_score(y_test, y_proba_baseline), 4))
