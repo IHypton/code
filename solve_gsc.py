@@ -2,8 +2,7 @@ import pulp
 from random_instance import generate_random_instance, print_instance
 from random_columns import generate_random_columns, generate_lpt_heuristic_columns, coverage_check
 
-
-def solve_gsc(instance, columns, verbose=True):
+def solve_gsc(instance, columns, verbose=True, time_limit=None):
     I = instance["I"]
     L = instance["L"]
     Q = instance["Q"]
@@ -40,7 +39,8 @@ def solve_gsc(instance, columns, verbose=True):
             for k in range(len(columns)) if columns[k]["location"] == l
         ) <= b, f"workload_bound_{l}"
 
-    model.solve(pulp.PULP_CBC_CMD(msg=0))
+    solver = pulp.PULP_CBC_CMD(msg=0, timeLimit=time_limit) if time_limit else pulp.PULP_CBC_CMD(msg=0)
+    model.solve(solver)
 
     status = pulp.LpStatus[model.status]
     result = {
@@ -73,7 +73,6 @@ if __name__ == "__main__":
     random_cols = generate_random_columns(instance, n_columns_per_location=2000, p_include=0.5, seed=1)
     lpt_cols = generate_lpt_heuristic_columns(instance)
 
-
     columns = random_cols + lpt_cols
     for idx, c in enumerate(columns):
         c["id"] = idx
@@ -84,7 +83,7 @@ if __name__ == "__main__":
 
     result = solve_gsc(instance, columns)
 
-    print("\nQuelle der gewählten Spalten:")
+    print("\n--- Quelle der gewählten Spalten ---")
     for c in result["chosen_columns"]:
         source = c.get("source", "random_sample")
         print(f"ID={c['id']} Loc={c['location']} Pods={c['pods']} W={c['workload']} D={c['distance']} -> Quelle: {source}")

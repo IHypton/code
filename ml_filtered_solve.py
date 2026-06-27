@@ -7,8 +7,8 @@ from solve_gsc import solve_gsc
 from feature_engineering import compute_features_for_columns, FEATURE_COLS
 
 MODEL_FILE = "model.pkl"
-TOP_K = 100  # wie viele Zufallsspalten pro Instanz nach ML-Filter übrig bleiben
-N_TEST_INSTANCES = 5
+TOP_K = 200  # wie viele Zufallsspalten pro Instanz nach ML-Filter übrig bleiben
+N_TEST_INSTANCES = 25
 N_COLUMNS_PER_LOCATION_FULL = 2000  # Größe des "vollen" Pools zum Vergleich
 
 
@@ -40,11 +40,10 @@ def run_comparison(n_test_instances=N_TEST_INSTANCES, top_k=TOP_K, seed_offset=5
             continue
 
         t0 = time.time()
-        result_full = solve_gsc(instance, full_columns, verbose=False)
+        result_full = solve_gsc(instance, full_columns, verbose=False, time_limit=120)
         time_full = time.time() - t0
         print(f"    Voller Pool gelöst in {time_full:.2f}s, b={result_full['b']}, G={result_full['objective']}", flush=True)
 
-       
         feature_rows = compute_features_for_columns(instance, random_cols, lpt_cols)
         X = pd.DataFrame(feature_rows)[FEATURE_COLS]
         scores = model.predict_proba(X)[:, 1]
@@ -70,7 +69,28 @@ def run_comparison(n_test_instances=N_TEST_INSTANCES, top_k=TOP_K, seed_offset=5
         t0 = time.time()
         result_filtered = solve_gsc(instance, filtered_columns, verbose=False)
         time_filtered = time.time() - t0
-        print(f"    Gefilterter Pool gelöst in {time_filtered:.2f}s, b={result_filtered['b']}, G={result_filtered['objective']}\n", flush=True)
+        print(f"    Gefilterter Pool gelöst in {time_filtered:.2f}s, b={result_filtered['b']}, G={result_filtered['objective']}", flush=True)
+
+        # --- Diff-Analyse, falls Ergebnis abweicht ---
+        if result_filtered["objective"] > result_full["objective"]:
+            full_chosen_keys = {(c["location"], c["pods"]) for c in result_full["chosen_columns"]}
+            filtered_chosen_keys = {(c["location"], c["pods"]) for c in result_filtered["chosen_columns"]}
+            missing_keys = full_chosen_keys - filtered_chosen_keys
+
+            print(f"    >>> ABWEICHUNG! Im Vollpool gewählte Spalte(n), die im Filter fehlen:")
+            for key in missing_keys:
+                loc, pods = key
+                # Ist diese Spalte eine Zufallsspalte? Wo lag ihr ML-Score im Ranking?
+                match = [c for c in random_cols if c["location"] == loc and c["pods"] == pods]
+                if match:
+                    c = match[0]
+                    rank = sorted(random_cols, key=lambda x: x["ml_score"], reverse=True).index(c)
+                    print(f"        Loc={loc} Pods={pods} W={c['workload']} D={c['distance']} "
+                          f"ML-Score={c['ml_score']:.4f} -> Rang {rank} von {len(random_cols)} "
+                          f"(Top-{top_k} Cutoff verpasst um {rank - top_k} Plätze)")
+                else:
+                    print(f"        Loc={loc} Pods={pods} (war eine LPT-Spalte, sollte eigentlich immer enthalten sein -> Bug?)")
+        print()
 
         results.append({
             "instance_id": seed_offset + i,
