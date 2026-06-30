@@ -1,0 +1,267 @@
+PS C:\Users\herol\Desktop\Uni\BA\code> & D:\Games\miniconda\python.exe c:/Users/herol/Desktop/Uni/BA/code/collect_training_data.py
+  25/1000 Instanzen verarbeitet (35.8s, 25 optimal, 0 fehlgeschlagen)
+  50/1000 Instanzen verarbeitet (54.7s, 50 optimal, 0 fehlgeschlagen)
+  75/1000 Instanzen verarbeitet (74.7s, 75 optimal, 0 fehlgeschlagen)
+  100/1000 Instanzen verarbeitet (98.3s, 100 optimal, 0 fehlgeschlagen)
+  125/1000 Instanzen verarbeitet (133.4s, 125 optimal, 0 fehlgeschlagen)
+  150/1000 Instanzen verarbeitet (150.3s, 150 optimal, 0 fehlgeschlagen)
+  175/1000 Instanzen verarbeitet (163.2s, 175 optimal, 0 fehlgeschlagen)
+  200/1000 Instanzen verarbeitet (206.8s, 200 optimal, 0 fehlgeschlagen)
+  225/1000 Instanzen verarbeitet (234.9s, 225 optimal, 0 fehlgeschlagen)
+  250/1000 Instanzen verarbeitet (252.6s, 250 optimal, 0 fehlgeschlagen)
+  275/1000 Instanzen verarbeitet (272.2s, 275 optimal, 0 fehlgeschlagen)
+  300/1000 Instanzen verarbeitet (283.2s, 300 optimal, 0 fehlgeschlagen)
+  325/1000 Instanzen verarbeitet (309.8s, 325 optimal, 0 fehlgeschlagen)
+  350/1000 Instanzen verarbeitet (345.3s, 350 optimal, 0 fehlgeschlagen)
+  375/1000 Instanzen verarbeitet (380.8s, 375 optimal, 0 fehlgeschlagen)
+  400/1000 Instanzen verarbeitet (391.7s, 400 optimal, 0 fehlgeschlagen)
+  425/1000 Instanzen verarbeitet (415.7s, 425 optimal, 0 fehlgeschlagen)
+  450/1000 Instanzen verarbeitet (439.0s, 450 optimal, 0 fehlgeschlagen)
+  475/1000 Instanzen verarbeitet (456.4s, 475 optimal, 0 fehlgeschlagen)
+  500/1000 Instanzen verarbeitet (490.6s, 500 optimal, 0 fehlgeschlagen)
+  525/1000 Instanzen verarbeitet (504.7s, 525 optimal, 0 fehlgeschlagen)
+  550/1000 Instanzen verarbeitet (550.5s, 550 optimal, 0 fehlgeschlagen)
+  575/1000 Instanzen verarbeitet (566.0s, 575 optimal, 0 fehlgeschlagen)
+  600/1000 Instanzen verarbeitet (574.0s, 600 optimal, 0 fehlgeschlagen)
+  625/1000 Instanzen verarbeitet (590.6s, 625 optimal, 0 fehlgeschlagen)
+  650/1000 Instanzen verarbeitet (651.3s, 650 optimal, 0 fehlgeschlagen)
+  675/1000 Instanzen verarbeitet (664.7s, 675 optimal, 0 fehlgeschlagen)
+  700/1000 Instanzen verarbeitet (693.7s, 700 optimal, 0 fehlgeschlagen)
+  725/1000 Instanzen verarbeitet (949.4s, 725 optimal, 0 fehlgeschlagen)
+  750/1000 Instanzen verarbeitet (975.6s, 750 optimal, 0 fehlgeschlagen)
+  775/1000 Instanzen verarbeitet (987.1s, 775 optimal, 0 fehlgeschlagen)
+  800/1000 Instanzen verarbeitet (1019.3s, 800 optimal, 0 fehlgeschlagen)
+  825/1000 Instanzen verarbeitet (1059.5s, 825 optimal, 0 fehlgeschlagen)
+  850/1000 Instanzen verarbeitet (1085.6s, 850 optimal, 0 fehlgeschlagen)
+  875/1000 Instanzen verarbeitet (1100.0s, 875 optimal, 0 fehlgeschlagen)
+  900/1000 Instanzen verarbeitet (1116.6s, 900 optimal, 0 fehlgeschlagen)
+  925/1000 Instanzen verarbeitet (1128.9s, 925 optimal, 0 fehlgeschlagen)
+  950/1000 Instanzen verarbeitet (1141.4s, 950 optimal, 0 fehlgeschlagen)
+  975/1000 Instanzen verarbeitet (1154.1s, 975 optimal, 0 fehlgeschlagen)
+  1000/1000 Instanzen verarbeitet (1169.0s, 1000 optimal, 0 fehlgeschlagen)
+
+Fertig: 1000 optimale Instanzen, 0 fehlgeschlagen.
+Insgesamt 1191736 Spalten-Zeilen (Trainingsdaten) -> training_data_context.csv
+Davon als 'gewählt' (chosen=1) gelabelt: 2531 (0.2%)
+PS C:\Users\herol\Desktop\Uni\BA\code> & D:\Games\miniconda\python.exe c:/Users/herol/Desktop/Uni/BA/code/train_final_model.py
+Zeilen gesamt: 1191736
+Instanzen: 1000
+
+Finales Modell (mit is_lpt_solution + Kontext-Features):
+              precision    recall  f1-score   support
+
+           0      1.000     0.989     0.994    236826
+           1      0.153     0.931     0.262       507
+
+    accuracy                          0.989    237333
+   macro avg      0.576     0.960     0.628    237333
+weighted avg      0.998     0.989     0.993    237333
+
+ROC-AUC: 0.9968
+PR-AUC: 0.7978
+
+Modell gespeichert als model.pkl
+PS C:\Users\herol\Desktop\Uni\BA\code> & D:\Games\miniconda\python.exe c:/Users/herol/Desktop/Uni/BA/code/ml_filtered_solve.py
+Lade Modell aus model.pkl ...
+Modell geladen. Starte Vergleich...
+
+[1/25] Generiere Instanz...
+    n_items=12, n_locations=4, Q=3
+    8000 Zufallsspalten + 3 LPT-Spalten generiert
+    Voller Pool gelöst in 18.77s, b=31.0, G=31168.0
+    Gefilterter Pool gelöst in 0.04s, b=31.0, G=31168.0
+
+[2/25] Generiere Instanz...
+    n_items=14, n_locations=5, Q=2
+    10000 Zufallsspalten + 2 LPT-Spalten generiert
+    Voller Pool gelöst in 15.16s, b=13.0, G=13447.0
+    Gefilterter Pool gelöst in 0.04s, b=13.0, G=13447.0
+
+[3/25] Generiere Instanz...
+    n_items=13, n_locations=2, Q=1
+    4000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.45s, b=118.0, G=118225.0
+    Gefilterter Pool gelöst in 0.05s, b=118.0, G=118225.0
+
+[4/25] Generiere Instanz...
+    n_items=10, n_locations=5, Q=4
+    10000 Zufallsspalten + 4 LPT-Spalten generiert
+    Voller Pool gelöst in 120.45s, b=32.0, G=32306.0
+    Gefilterter Pool gelöst in 0.11s, b=32.0, G=32310.0
+    >>> ABWEICHUNG! Im Vollpool gewählte Spalte(n), die im Filter fehlen:
+        Loc=3 Pods=('P12', 'P26') W=32 D=56 ML-Score=0.6707 -> Rang 6 von 10000 (Top-200 Cutoff verpasst um -194 Plätze)
+        Loc=1 Pods=('P4', 'P8', 'P20') W=31 D=95 ML-Score=0.3344 -> Rang 49 von 10000 (Top-200 Cutoff verpasst um -151 Plätze)
+        Loc=5 Pods=('P7', 'P28') W=32 D=61 ML-Score=0.2932 -> Rang 69 von 10000 (Top-200 Cutoff verpasst um -131 Plätze)
+        Loc=2 Pods=('P0', 'P18', 'P31') W=32 D=94 ML-Score=0.1037 -> Rang 282 von 10000 (Top-200 Cutoff verpasst um 82 Plätze)
+
+[5/25] Generiere Instanz...
+    n_items=15, n_locations=4, Q=1
+    8000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.50s, b=167.0, G=167359.0
+    Gefilterter Pool gelöst in 0.04s, b=167.0, G=167359.0
+
+[6/25] Generiere Instanz...
+    n_items=11, n_locations=3, Q=1
+    6000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.56s, b=179.0, G=179211.0
+    Gefilterter Pool gelöst in 0.04s, b=179.0, G=179211.0
+
+[7/25] Generiere Instanz...
+    n_items=10, n_locations=3, Q=3
+    6000 Zufallsspalten + 3 LPT-Spalten generiert
+    Voller Pool gelöst in 4.00s, b=52.0, G=52261.0
+    Gefilterter Pool gelöst in 0.10s, b=52.0, G=52261.0
+
+[8/25] Generiere Instanz...
+    n_items=9, n_locations=4, Q=3
+    8000 Zufallsspalten + 3 LPT-Spalten generiert
+    Voller Pool gelöst in 120.35s, b=23.0, G=23193.0
+    Gefilterter Pool gelöst in 0.04s, b=23.0, G=23200.0
+    >>> ABWEICHUNG! Im Vollpool gewählte Spalte(n), die im Filter fehlen:
+        Loc=1 Pods=('P1', 'P12', 'P25') W=23 D=66 ML-Score=0.4917 -> Rang 494 von 8000 (Top-200 Cutoff verpasst um 294 Plätze)
+        Loc=3 Pods=('P6', 'P8', 'P22') W=23 D=69 ML-Score=0.6686 -> Rang 331 von 8000 (Top-200 Cutoff verpasst um 131 Plätze)
+        Loc=4 Pods=('P15', 'P19', 'P30') W=22 D=58 ML-Score=0.8369 -> Rang 82 von 8000 (Top-200 Cutoff verpasst um -118 Plätze)
+
+[9/25] Generiere Instanz...
+    n_items=5, n_locations=6, Q=5
+    1722 Zufallsspalten + 5 LPT-Spalten generiert
+    Voller Pool gelöst in 1.15s, b=21.0, G=21055.0
+    Gefilterter Pool gelöst in 0.39s, b=21.0, G=21055.0
+
+[10/25] Generiere Instanz...
+    n_items=15, n_locations=3, Q=3
+    6000 Zufallsspalten + 3 LPT-Spalten generiert
+    Voller Pool gelöst in 0.54s, b=48.0, G=48247.0
+    Gefilterter Pool gelöst in 0.04s, b=48.0, G=48247.0
+
+[11/25] Generiere Instanz...
+    n_items=14, n_locations=2, Q=2
+    4000 Zufallsspalten + 2 LPT-Spalten generiert
+    Voller Pool gelöst in 0.39s, b=106.0, G=106403.0
+    Gefilterter Pool gelöst in 0.05s, b=106.0, G=106403.0
+
+[12/25] Generiere Instanz...
+    n_items=11, n_locations=6, Q=3
+    12000 Zufallsspalten + 3 LPT-Spalten generiert
+    Voller Pool gelöst in 120.59s, b=34.0, G=34084.0
+    Gefilterter Pool gelöst in 0.07s, b=34.0, G=34089.0
+    >>> ABWEICHUNG! Im Vollpool gewählte Spalte(n), die im Filter fehlen:
+        Loc=2 Pods=('P0', 'P2', 'P7') W=34 D=21 ML-Score=0.5278 -> Rang 108 von 12000 (Top-200 Cutoff verpasst um -92 Plätze)
+        Loc=4 Pods=('P3', 'P6', 'P8', 'P10') W=33 D=31 ML-Score=0.1807 -> Rang 1599 von 12000 (Top-200 Cutoff verpasst um 1399 Plätze)
+        Loc=6 Pods=('P1', 'P4', 'P5', 'P9') W=33 D=32 ML-Score=0.3977 -> Rang 418 von 12000 (Top-200 Cutoff verpasst um 218 Plätze)
+
+[13/25] Generiere Instanz...
+    n_items=7, n_locations=2, Q=1
+    4000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.29s, b=92.0, G=92143.0
+    Gefilterter Pool gelöst in 0.05s, b=92.0, G=92143.0
+
+[14/25] Generiere Instanz...
+    n_items=13, n_locations=6, Q=4
+    12000 Zufallsspalten + 4 LPT-Spalten generiert
+    Voller Pool gelöst in 120.63s, b=41.0, G=41401.0
+    Gefilterter Pool gelöst in 0.13s, b=41.0, G=41334.0
+
+[15/25] Generiere Instanz...
+    n_items=10, n_locations=3, Q=2
+    6000 Zufallsspalten + 2 LPT-Spalten generiert
+    Voller Pool gelöst in 6.47s, b=48.0, G=48231.0
+    Gefilterter Pool gelöst in 0.04s, b=48.0, G=48231.0
+
+[16/25] Generiere Instanz...
+    n_items=16, n_locations=5, Q=1
+    10000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.65s, b=39.0, G=39449.0
+    Gefilterter Pool gelöst in 0.04s, b=39.0, G=39449.0
+
+[17/25] Generiere Instanz...
+    n_items=9, n_locations=6, Q=5
+    12000 Zufallsspalten + 5 LPT-Spalten generiert
+    Voller Pool gelöst in 120.56s, b=33.0, G=33027.0
+    Gefilterter Pool gelöst in 0.16s, b=33.0, G=33027.0
+
+[18/25] Generiere Instanz...
+    n_items=16, n_locations=3, Q=2
+    6000 Zufallsspalten + 2 LPT-Spalten generiert
+    Voller Pool gelöst in 23.21s, b=49.0, G=49091.0
+    Gefilterter Pool gelöst in 0.04s, b=49.0, G=49091.0
+
+[19/25] Generiere Instanz...
+    n_items=8, n_locations=3, Q=1
+    6000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.51s, b=59.0, G=59283.0
+    Gefilterter Pool gelöst in 0.04s, b=59.0, G=59283.0
+
+[20/25] Generiere Instanz...
+    n_items=11, n_locations=6, Q=6
+    12000 Zufallsspalten + 6 LPT-Spalten generiert
+    Voller Pool gelöst in 75.36s, b=32.0, G=32265.0
+    Gefilterter Pool gelöst in 0.11s, b=32.0, G=32265.0
+
+[21/25] Generiere Instanz...
+    n_items=19, n_locations=6, Q=1
+    12000 Zufallsspalten + 1 LPT-Spalten generiert
+    Voller Pool gelöst in 0.94s, b=308.0, G=308475.0
+    Gefilterter Pool gelöst in 0.04s, b=308.0, G=308475.0
+
+[22/25] Generiere Instanz...
+    n_items=15, n_locations=2, Q=2
+    4000 Zufallsspalten + 2 LPT-Spalten generiert
+    Voller Pool gelöst in 0.48s, b=60.0, G=60403.0
+    Gefilterter Pool gelöst in 0.04s, b=60.0, G=60403.0
+
+[23/25] Generiere Instanz...
+    n_items=11, n_locations=4, Q=2
+    8000 Zufallsspalten + 2 LPT-Spalten generiert
+    Voller Pool gelöst in 54.32s, b=63.0, G=63293.0
+    Gefilterter Pool gelöst in 0.04s, b=63.0, G=63293.0
+
+[24/25] Generiere Instanz...
+    n_items=20, n_locations=4, Q=3
+    8000 Zufallsspalten + 3 LPT-Spalten generiert
+    Voller Pool gelöst in 4.39s, b=94.0, G=94452.0
+    Gefilterter Pool gelöst in 0.04s, b=94.0, G=94452.0
+
+[25/25] Generiere Instanz...
+    n_items=20, n_locations=5, Q=4
+    10000 Zufallsspalten + 4 LPT-Spalten generiert
+    Voller Pool gelöst in 44.53s, b=16.0, G=16468.0
+    Gefilterter Pool gelöst in 0.13s, b=16.0, G=16468.0
+
+ instance_id  n_columns_full  n_columns_filtered  objective_full  objective_filtered  b_full  b_filtered  time_full  time_filtered status
+        5000            8003                 203         31168.0             31168.0    31.0        31.0  18.770469       0.038432     ok
+        5001           10002                 202         13447.0             13447.0    13.0        13.0  15.164596       0.043047     ok
+        5002            4001                 201        118225.0            118225.0   118.0       118.0   0.453105       0.046020     ok
+        5003           10004                 204         32306.0             32310.0    32.0        32.0 120.445457       0.106856     ok
+        5004            8001                 201        167359.0            167359.0   167.0       167.0   0.500356       0.038037     ok
+        5005            6001                 201        179211.0            179211.0   179.0       179.0   0.556165       0.037985     ok
+        5006            6003                 203         52261.0             52261.0    52.0        52.0   3.999406       0.096191     ok
+        5007            8003                 203         23193.0             23200.0    23.0        23.0 120.352398       0.038598     ok
+        5008            1727                 205         21055.0             21055.0    21.0        21.0   1.149429       0.389853     ok
+        5009            6003                 203         48247.0             48247.0    48.0        48.0   0.537679       0.036530     ok
+        5010            4002                 202        106403.0            106403.0   106.0       106.0   0.390523       0.051332     ok
+        5011           12003                 203         34084.0             34089.0    34.0        34.0 120.592700       0.067477     ok
+        5012            4001                 201         92143.0             92143.0    92.0        92.0   0.287515       0.053072     ok
+        5013           12004                 204         41401.0             41334.0    41.0        41.0 120.628877       0.125097     ok
+        5014            6002                 202         48231.0             48231.0    48.0        48.0   6.469095       0.043391     ok
+        5015           10001                 201         39449.0             39449.0    39.0        39.0   0.654266       0.043778     ok
+        5016           12005                 205         33027.0             33027.0    33.0        33.0 120.558871       0.158209     ok
+        5017            6002                 202         49091.0             49091.0    49.0        49.0  23.208639       0.039198     ok
+        5018            6001                 201         59283.0             59283.0    59.0        59.0   0.508178       0.040243     ok
+        5019           12006                 206         32265.0             32265.0    32.0        32.0  75.358899       0.108190     ok
+        5020           12001                 201        308475.0            308475.0   308.0       308.0   0.940777       0.040577     ok
+        5021            4002                 202         60403.0             60403.0    60.0        60.0   0.480914       0.037222     ok
+        5022            8002                 202         63293.0             63293.0    63.0        63.0  54.322965       0.040540     ok
+        5023            8003                 203         94452.0             94452.0    94.0        94.0   4.385343       0.040327     ok
+        5024           10004                 204         16468.0             16468.0    16.0        16.0  44.530363       0.128707     ok
+
+25 von 25 Instanzen erfolgreich verglichen (0 mit Coverage-Problem im gefilterten Pool)
+
+Zusammenfassung:
+Ø Zielfunktionswert voller Pool:      70597.6
+Ø Zielfunktionswert ML-gefiltert:      70595.6
+Identisches Ergebnis: 21, ML-gefiltert schlechter: 3, ML-gefiltert besser: 1
+
+Ø Solver-Zeit voller Pool:      34.2099s
+Ø Solver-Zeit ML-gefiltert:      0.0756s
+Speedup: 452.77x
