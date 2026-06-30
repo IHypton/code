@@ -130,6 +130,6 @@ if __name__ == "__main__":
     print("\n\nBeispiel: voll-zufällige Instanz für ML-Daten\n")
     for i in range(3):
         inst = generate_fully_random_instance(seed=100 + i)
-        print(f"--- Instanz {i} ---")
+        print(f"Instanz {i} :")
         print(f"n_items={len(inst['I'])}, n_locations={len(inst['L'])}, Q={inst['Q']}")
         print()

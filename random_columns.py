@@ -1,7 +1,6 @@
 import random
 from itertools import permutations
 
-
 def sample_random_column(R_i, location, q, d, p_include=0.5, rng=None):
     if rng is None:
         rng = random
@@ -67,7 +66,6 @@ def generate_random_columns(instance, n_columns_per_location=200, p_include=0.5,
 
     return columns
 
-
 def coverage_check(columns, I):
     """Prüft, ob alle Items durch mindestens eine generierte Spalte abgedeckt werden."""
     covered = set()
@@ -76,8 +74,8 @@ def coverage_check(columns, I):
     missing = set(I) - covered
     return missing
 
-
 def generate_lpt_heuristic_columns(instance):
+    """Generiert Spalten basierend auf der LPT-Heuristik (Longest Processing Time)."""
     R_i = instance["R_i"]
     L = instance["L"]
     Q = instance["Q"]
