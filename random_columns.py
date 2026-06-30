@@ -2,6 +2,8 @@ import random
 from itertools import permutations
 
 def sample_random_column(R_i, location, q, d, p_include=0.5, rng=None):
+    """ Erzeugt eine zufällige Spalte für einen gegebenen Standort.
+        Jeder Pod wird mit Wahrscheinlichkeit p_include ausgewählt."""
     if rng is None:
         rng = random
 

@@ -3,6 +3,7 @@ from random_instance import generate_random_instance, print_instance
 from random_columns import generate_random_columns, generate_lpt_heuristic_columns, coverage_check
 
 def solve_gsc(instance, columns, verbose=True, time_limit=None):
+    """Löst das Generalized Set Covering Problem (GSC) für die gegebene Instanz und Spalten."""
     I = instance["I"]
     L = instance["L"]
     Q = instance["Q"]

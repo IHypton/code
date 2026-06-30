@@ -13,6 +13,8 @@ def generate_random_instance(
     Q=None,
     seed=None,
 ):
+    """Generiert eine zufällige Instanz des Problems mit den gegebenen Parametern."""
+
     if seed is None:
         random.seed(seed)
 
@@ -61,6 +63,7 @@ def generate_random_instance(
 
 
 def print_instance(instance):
+    """Gibt die Instanz in einer lesbaren Form aus."""
     print("Items I:", instance["I"])
     print("Standorte L:", instance["L"])
     print("Q (max Aufzüge):", instance["Q"])
@@ -91,6 +94,7 @@ def generate_fully_random_instance(
     d_range_bounds=(1, 50),
     seed=None,
 ):
+    """Generiert eine vollständig zufällige Instanz mit zufälliger Größe und Parametern."""
     rng = random.Random(seed)
 
     n_items = rng.randint(*n_items_range)

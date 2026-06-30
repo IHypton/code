@@ -13,6 +13,7 @@ N_COLUMNS_PER_LOCATION_FULL = 2000  # Größe des "vollen" Pools zum Vergleich
 
 
 def run_comparison(n_test_instances=N_TEST_INSTANCES, top_k=TOP_K, seed_offset=5000):
+    """Führt den Vergleich zwischen dem vollen Spaltenpool und dem ML-gefilterten Pool durch."""
     print(f"Lade Modell aus {MODEL_FILE} ...")
     model = joblib.load(MODEL_FILE)
     print("Modell geladen. Starte Vergleich...\n")
